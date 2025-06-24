@@ -1,46 +1,187 @@
-# Getting Started with Create React App
+# Azure CRUD API Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React TypeScript frontend application that integrates with Azure Functions to provide a complete CRUD (Create, Read, Update, Delete) interface for managing orders.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **List Orders**: View all orders in a grid layout with order details
+- **Create Orders**: Add new orders with customer information, shipping address, and multiple items
+- **Update Orders**: Modify existing orders including status updates
+- **Delete Orders**: Remove orders from the system
+- **Product Management**: Initialize and view available products
+- **Real-time API Integration**: Direct integration with Azure Functions
+- **Responsive Design**: Works on desktop and mobile devices
+- **Modern UI**: Clean, intuitive interface with proper error handling
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Node.js 18.x LTS or later
+- npm or yarn package manager
+- Azure Functions backend deployed and running
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Installation
 
-### `npm test`
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-### `npm run build`
+## Configuration
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Before running the application, you need to configure the API base URL:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Start the application:
+   ```bash
+   npm start
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Open your browser to `http://localhost:3000`
 
-### `npm run eject`
+3. In the "API Base URL" field, enter your Azure Functions URL:
+   - Format: `https://your-function-app-name.azurewebsites.net/api`
+   - Example: `https://mycrudfunc.azurewebsites.net/api`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Usage
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 1. Initialize Products
+- Click the "Initialize Products" button to populate the database with sample products
+- This only needs to be done once after deployment
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 2. List Orders
+- Navigate to the "List Orders" tab
+- Click "Refresh Orders" to load the latest data
+- View order details including customer name, address, status, and total
+- Use "View/Edit" to select an order for updating
+- Use "Delete" to remove orders
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### 3. Create Orders
+- Navigate to the "Create Order" tab
+- Fill in customer name and shipping address
+- Add items by selecting products from the dropdown and specifying quantities
+- Click "Add Item" to add more products to the order
+- Click "Create Order" to save the new order
 
-## Learn More
+### 4. Update Orders
+- First select an order from the "List Orders" tab using "View/Edit"
+- Navigate to the "Update Order" tab
+- Modify the order details as needed
+- Update the status using the dropdown (Pending, Processing, Shipped, Delivered, Cancelled)
+- Click "Update Order" to save changes
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## API Endpoints
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The frontend integrates with the following Azure Functions:
+
+- `GET /orders` - List all orders
+- `GET /orders/{id}` - Get specific order
+- `POST /orders` - Create new order
+- `PUT /orders/{id}` - Update existing order
+- `DELETE /orders/{id}` - Delete order
+- `GET /products` - List all products
+- `POST /products/init` - Initialize products
+
+## Development
+
+### Available Scripts
+
+- `npm start` - Start development server
+- `npm test` - Run tests
+- `npm run build` - Build for production
+- `npm run eject` - Eject from Create React App
+
+### Project Structure
+
+```
+src/
+├── App.tsx          # Main application component
+├── App.css          # Application styles
+├── index.tsx        # Application entry point
+└── index.css        # Global styles
+```
+
+### Key Components
+
+- **API Configuration**: Set the base URL for Azure Functions
+- **Tab Navigation**: Switch between different operations
+- **Order Management**: Complete CRUD operations for orders
+- **Product Integration**: Dynamic product selection for orders
+- **Error Handling**: Comprehensive error display and handling
+- **Loading States**: Visual feedback during API calls
+
+## Troubleshooting
+
+### Common Issues
+
+1. **API Connection Errors**
+   - Verify the API base URL is correct
+   - Ensure Azure Functions are deployed and running
+   - Check CORS settings in Azure Functions
+
+2. **Products Not Loading**
+   - Click "Initialize Products" to populate the database
+   - Check Azure Functions logs for errors
+
+3. **Orders Not Saving**
+   - Verify all required fields are filled
+   - Check browser console for error messages
+   - Ensure Azure Functions have proper permissions
+
+4. **CORS Issues**
+   - Add CORS configuration to Azure Functions
+   - Ensure the frontend URL is allowed in CORS settings
+
+### Debug Mode
+
+To enable debug mode and see detailed API responses:
+
+1. Open browser developer tools (F12)
+2. Check the Console tab for error messages
+3. Check the Network tab for API call details
+
+## Deployment
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+This creates a `build` folder with optimized production files.
+
+### Deploy to Azure Static Web Apps
+
+1. Install Azure Static Web Apps CLI:
+   ```bash
+   npm install -g @azure/static-web-apps-cli
+   ```
+
+2. Deploy:
+   ```bash
+   swa deploy build
+   ```
+
+### Deploy to Other Platforms
+
+The built files can be deployed to any static hosting service:
+- Azure Blob Storage
+- GitHub Pages
+- Netlify
+- Vercel
+- AWS S3
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
